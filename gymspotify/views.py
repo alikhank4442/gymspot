@@ -58,8 +58,18 @@ def spotify_callback(request, format=None):
      #   request.session.create()
     
     #update_or_create_user_tokens(request.session.session_key, access_token, token_type, expires_in, refresh_token)       
+
+    endpoint = "https://api.spotify.com/v1/recommendations?limit=10&market=PL&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical&seed_tracks=0c6xIDDpzE81m2q797ordA%2C2Q9nA56DKKJhj4cHMbHlAS"
+    tokens = access_token
+    headers = {'Content-Type': 'application/json', 'Authorization': "Bearer " + tokens} 
+    try: 
+        post(endpoint, headers=headers)
+    except:
+        put(endpoint,headers=headers)
+    response = get(endpoint, {}, headers=headers)
+    return Response({'Get Recomendation': response}, status=status.HTTP_200_OK)
     
-    return Response({'authorization token': access_token}, status=status.HTTP_200_OK)
+    #return Response({'authorization token': access_token}, status=status.HTTP_200_OK)
     #return redirect
     
 class IsAuthenticated(APIView):
