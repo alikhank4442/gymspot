@@ -48,17 +48,18 @@ def spotify_callback(request, format=None):
     expires_in = response.get('expires_in')
     print("************check************************")
     #print("expires_in: ", expires_in)
-    print("access_token: ", access_token)
-    print("refresh_token: ", refresh_token)
+    #print("access_token: ", access_token)
+    #print("refresh_token: ", refresh_token)
     expires_in = 3600
     print("************************************")
     error = response.get('error')
     
-    if not request.session.exists(request.session.session_key):
-        request.session.create()
+    #if not request.session.exists(request.session.session_key):
+     #   request.session.create()
     
-    update_or_create_user_tokens(request.session.session_key, access_token, token_type, expires_in, refresh_token)       
-    return Response({'status': "success"}, status=status.HTTP_200_OK)
+    #update_or_create_user_tokens(request.session.session_key, access_token, token_type, expires_in, refresh_token)       
+    
+    return Response({'authorization token': access_token}, status=status.HTTP_200_OK)
     #return redirect
     
 class IsAuthenticated(APIView):
